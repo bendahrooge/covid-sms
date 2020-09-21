@@ -1,0 +1,19 @@
+{
+  "name": "covid-sms",
+  "version": "1.0.0",
+  "description": "Sends daily cases updated via SMS when published by the university health services",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/datastore": "^6.1.1",
+    "@signalwire/node": "^2.3.3",
+    "express": "^4.17.1",
+    "moment": "^2.28.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Dahrooge <bdahrooge@uri.edu>",
+  "license": "MIT"
+}
