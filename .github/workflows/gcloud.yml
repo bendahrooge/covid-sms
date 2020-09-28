@@ -6,8 +6,9 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ secrets.DEPLOYMENT_PAYLOAD_DATA }}" > keys.json
       - uses: actions/checkout@v1
+      - run: echo "${{ secrets.DEPLOYMENT_PAYLOAD_DATA }}" > keys.json
+      - run: cat keys.json
       - uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
