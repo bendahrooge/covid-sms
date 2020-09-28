@@ -2,7 +2,7 @@
   "name": "covid-sms",
   "version": "1.0.0",
   "description": "Sends daily cases updated via SMS when published by the university health services",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "@google-cloud/datastore": "^6.1.1",
     "@signalwire/node": "^2.3.3",
