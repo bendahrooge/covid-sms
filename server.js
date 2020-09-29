@@ -16,7 +16,7 @@ app.get('/api/covid', (req, res) => {
         datastore.get(key, (err, entry) => {
             
             // Determine if the number of covid tests reported has changed
-            if(entry.hist.tests === data.hist.tests){
+            if(entry.summary.tests === data.summary.tests){
 
                 // No new cases or tests, nothing else to do...
                 
@@ -32,7 +32,7 @@ app.get('/api/covid', (req, res) => {
                 datastore.save({data: data, key: key}, (err) => {
     
                     // Send the updated notfications to the subscribers
-                    covid.sendNotfiications(data, entry, true)
+                    sms.sendNotfiications(data, entry, true)
     
                 })
           }

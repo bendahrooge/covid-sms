@@ -26,14 +26,14 @@ module.exports.stats = (callback) => {
 
         data.forEach(day => {
             // Appending historal data to array
-            days.push(this.clearFormatting(day))
+            historical.push(this.clearFormatting(day))
 
             // Collecting specific stats for cumulative data points
             if(day['gsx$tests']['$t']){
-                tests += parseInt(day['gsx$tests']['$t']);
+                summary.tests += parseInt(day['gsx$tests']['$t']);
             }
             if(day['gsx$positives']['$t']){
-                positives += parseInt(day['gsx$positives']['$t']);
+                summary.positives += parseInt(day['gsx$positives']['$t']);
             }
         });
 
