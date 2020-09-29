@@ -15,7 +15,7 @@ module.exports.stats = (callback) => {
 
         let summary = {
             tests: 0,
-            positivs: 0,
+            positives: 0,
 
              // NOTE: These data points are cumulative
             quarbeds: 0,
