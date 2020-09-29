@@ -9,6 +9,16 @@ const client = new RestClient( keys.signalwire_client, keys.signalwire_secret, {
 module.exports.sendNotfiications = (updatedData, previousData, send = false) => {
     let smsMessage = '';
 
+    let newCases = updatedData.summary.positives - previousData.summary.positives
+    if(newCases === 0){
+        // Don't send an update for no new cases
+        send = false; 
+    }else{
+        if(newCases > 0){
+            smsMessage += newCases + " new cases were reported; "
+        }
+    }
+
     smsMessage += 'On ' + updatedData.mostRecentDay.date + " there were " + 
         updatedData.mostRecentDay.positives + " positives out of " + updatedData.mostRecentDay.tests + 
         " tests. "
