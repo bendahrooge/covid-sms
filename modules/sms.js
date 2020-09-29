@@ -13,7 +13,7 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
         updatedData.mostRecentDay.positives + " positives out of " + updatedData.mostRecentDay.tests + 
         " tests. "
 
-    smsMessage += "Source: uri.edu/healthservices/covid-19. "
+    smsMessage += "Source: uri.edu/healthservices/covid-19/tracker. "
 
     // Prevent the message from splitting into two segements
     if(smsMessage.length < 138){
