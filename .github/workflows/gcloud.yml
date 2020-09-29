@@ -14,4 +14,4 @@ jobs:
           PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
           APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
-          args: app deploy app.yaml cron.yaml --version main
+          args: app deploy app.yaml --version main
