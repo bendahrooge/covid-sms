@@ -15,7 +15,7 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
         send = false; 
     }else{
         if(newCases > 0){
-            smsMessage += newCases + " new cases were reported; "
+            smsMessage += newCases + " new cases reported; "
         }
     }
 
@@ -23,7 +23,7 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
         updatedData.mostRecentDay.positives + " positives out of " + updatedData.mostRecentDay.tests + 
         " tests. "
 
-    smsMessage += "Source: uri.edu/healthservices/covid-19/tracker. "
+    smsMessage += "More @ uri.edu/healthservices/covid-19/tracker. "
 
     // Prevent the message from splitting into two segements
     if(smsMessage.length < 138){
