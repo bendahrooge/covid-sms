@@ -16,6 +16,8 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
     }else{
         if(newCases > 0){
             smsMessage += newCases + " new cases reported; "
+        }else if(newCases < 0){
+            smsMessage += "A correction was posted: " + newCases + " new cases reported; "
         }
     }
 
@@ -23,9 +25,11 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
         updatedData.mostRecentDay.positives + " positives out of " + updatedData.mostRecentDay.tests + 
         " tests. "
 
-    smsMessage += "More @ uri.edu/healthservices/covid-19/tracker. "
-
     // Prevent the message from splitting into two segements
+    if(smsMessage.length < 117){
+      smsMessage += "More @ uri.edu/healthservices/covid-19/tracker. "
+    }
+
     if(smsMessage.length < 138){
         smsMessage += "Reply STOP to cancel."
     }
