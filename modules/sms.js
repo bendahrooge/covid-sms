@@ -54,3 +54,48 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
     }
 
 }
+
+module.exports.handleIncoming = (req, res) => {
+    const key = datastore.key(["contacts", "subs"]);
+    datastore.get(key, (err, entry) => {
+
+      let people;
+  
+        if(entry != undefined){
+          people = entry.default;
+        }else{
+          people = [];
+        }
+  
+        res.send({data: people})
+    
+  
+  
+      if(req.query.Body.toLocaleLowerCase().indexOf("stop") >= 0){
+        // unsubscribe from list
+        people.splice(people.indexOf(req.query.From), 1);
+      }else {
+        // add to list
+        let t = req.query.Body.toLocaleLowerCase();
+  
+        if(true){
+          if(people.indexOf(req.query.From) > -1){
+            // Already subscribed
+          }else{
+            people.push(req.query.From);
+            client.messages
+            .create({from: '+18885000119', body: "You've been subsrcd to: Covid-19 Daily Case Updates (URI). Updates will send daily when new data is published betwn 9am-12pm EST. Reply STOP anytime to cancel.", to: req.query.From})
+            .then(message => console.log(message))
+            .done();
+          }
+        }
+  
+  
+      }
+  
+        datastore.save({data: {default: people}, key: key}, (err) => {
+          console.log(err)
+        })
+      
+    })
+}

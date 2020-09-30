@@ -46,6 +46,10 @@ app.get('/api/covid', (req, res) => {
   });
   
 
+app.get('/api/incoming', function(req, res){
+  sms.handleIncoming(req, res)
+})
+
 // Start the server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
