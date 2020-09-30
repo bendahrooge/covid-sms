@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: 'echo "${{ secrets.DEPLOYMENT_PAYLOAD_DATA }}" > keys.json'
+      - run: 'echo "${{ secrets.DEPLOYMENT_PAYLOAD_DATA }}" | base64 --decode > keys.json'
       - run: cat keys.json
       - uses: actions-hub/gcloud@master
         env:
