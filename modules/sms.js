@@ -11,8 +11,8 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
 
     let newCases = updatedData.summary.positives - previousData.summary.positives
     if(newCases === 0){
-        // Don't send an update for no new cases
-        send = false; 
+          // New tests but no new cases...
+          smsMessage += "No new cases reported; "
     }else{
         if(newCases > 0){
             smsMessage += newCases + " new cases reported; "
@@ -72,29 +72,33 @@ module.exports.handleIncoming = (req, res) => {
         }
   
         res.send({data: people})
-    
-  
   
       if(req.query.Body.toLocaleLowerCase().indexOf("stop") >= 0){
         // unsubscribe from list
         people.splice(people.indexOf(req.query.From), 1);
+
+        client.messages
+        .create({from: '+18885000119', body: "You have been unsubscribed and will not recieve any further messages. To recieve alerts again, text START to this number.", to: req.query.From})
+        .then(message => console.log(message))
+        .done();
+
       }else {
-        // add to list
-        let t = req.query.Body.toLocaleLowerCase();
-  
-        if(true){
-          if(people.indexOf(req.query.From) > -1){
-            // Already subscribed
-          }else{
-            people.push(req.query.From);
-            client.messages
-            .create({from: '+18885000119', body: "You've been subsrcd to: Covid-19 Daily Case Updates (URI). Updates will send daily when new data is published betwn 9am-12pm EST. Reply STOP anytime to cancel.", to: req.query.From})
-            .then(message => console.log(message))
-            .done();
-          }
+        // add to sms list 
+
+        if(req.query.Body.toLocaleLowerCase().indexOf("covid") >= 0 ||
+           req.query.Body.toLocaleLowerCase().indexOf("start") >= 0 ||
+           req.query.Body.toLocaleLowerCase().indexOf("uri") >= 0){
+            if(people.indexOf(req.query.From) > -1){
+            // Already subscribed, do nothing
+
+            }else{
+              people.push(req.query.From);
+              client.messages
+              .create({from: '+18885000119', body: "You've been subsrcd to: Covid-19 Daily Case Updates (URI). Updates will send daily when new data is published betwn 9am-12pm EST. Reply STOP anytime to cancel.", to: req.query.From})
+              .then(message => console.log(message))
+              .done();
+            }
         }
-  
-  
       }
   
         datastore.save({data: {default: people}, key: key}, (err) => {

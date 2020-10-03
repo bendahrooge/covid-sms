@@ -16,7 +16,7 @@ app.get('/api/covid', (req, res) => {
         datastore.get(key, (err, entry) => {
             
             // Determine if the number of covid tests reported has changed
-            if(entry.summary.tests === data.summary.tests){
+            if(entry.summary.tests === data.summary.tests && entry.summary.positives === data.summary.positives){
 
                 // No new cases or tests, nothing else to do...
                 
@@ -27,7 +27,6 @@ app.get('/api/covid', (req, res) => {
                 // New or updated testing data exists, send an alert via SMS
 
                 res.json({"status":"updated", "data": data, entry: entry});
-
 
                 datastore.save({data: data, key: key}, (err) => {
     
@@ -41,8 +40,6 @@ app.get('/api/covid', (req, res) => {
     }else{
       res.json({"Success": false, "Reason":"Missing App Engine Cron Header"});
     }
-  
-  
   });
   
 
