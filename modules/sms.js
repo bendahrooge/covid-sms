@@ -21,6 +21,10 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
         }
     }
 
+    if(updatedData.posRate7days){
+      smsMessage += "7 day positivity rate: " + updatedData.posRate7days + '%; '
+    }
+
     smsMessage += 'On ' + updatedData.mostRecentDay.date + " there were " + 
         updatedData.mostRecentDay.positives + " positives out of " + updatedData.mostRecentDay.tests + 
         " tests. "
