@@ -21,17 +21,18 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
         }
     }
 
-    if(updatedData.posRate7days){
-      smsMessage += "7 day positivity rate: " + updatedData.posRate7days + '%; '
-    }
-
-    smsMessage += 'On ' + updatedData.mostRecentDay.date + " there were " + 
+    smsMessage += 'On ' + updatedData.mostRecentDay.date.slice(0, -5) + ": " + 
         updatedData.mostRecentDay.positives + " positives out of " + updatedData.mostRecentDay.tests + 
         " tests. "
 
+    if(updatedData.posRate7days 
+      && parseFloat(updatedData.posRate7days) > 1.0){
+      smsMessage += "7 day positivity: " + updatedData.posRate7days + '%; '
+    }
+
     // Prevent the message from splitting into two segements
-    if(smsMessage.length < 117){
-      smsMessage += "More @ uri.edu/healthservices/covid-19/tracker. "
+    if(smsMessage.length < 117 && new Date().getMinutes() === 30){
+      smsMessage += "More @ uri.edu/healthservices/tracker. "
     }
 
     if(smsMessage.length < 138){
