@@ -6,7 +6,7 @@ const datastore = new Datastore();
 const { RestClient } = require('@signalwire/node')
 const client = new RestClient( keys.signalwire_client, keys.signalwire_secret, { signalwireSpaceUrl: keys.signalwire_wspace })
 
-module.exports.sendNotfiications = (updatedData, previousData, send = false) => {
+module.exports.sendNotfications = (updatedData, previousData, send = false) => {
     let smsMessage = '';
 
     let newCases = updatedData.summary.positives - previousData.summary.positives
@@ -26,12 +26,12 @@ module.exports.sendNotfiications = (updatedData, previousData, send = false) => 
         " tests. "
 
     if(updatedData.posRate7days 
-      && parseFloat(updatedData.posRate7days) > 1.0){
+      && parseFloat(updatedData.posRate7days) > 0){
       smsMessage += "7 day positivity: " + updatedData.posRate7days + '%; '
     }
 
     // Prevent the message from splitting into two segements
-    if(smsMessage.length < 117 && new Date().getMinutes() === 30){
+    if(smsMessage.length < 117){
       smsMessage += "More @ uri.edu/healthservices/tracker. "
     }
 

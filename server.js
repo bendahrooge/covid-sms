@@ -31,7 +31,7 @@ app.get('/api/covid', (req, res) => {
                 datastore.save({data: data, key: key}, (err) => {
     
                     // Send the updated notfications to the subscribers
-                    sms.sendNotfiications(data, entry, true)
+                    sms.sendNotfications(data, entry, true)
     
                 })
           }
