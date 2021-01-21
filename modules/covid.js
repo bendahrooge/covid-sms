@@ -41,10 +41,10 @@ module.exports.stats = (callback) => {
         // Gather the positvity rate for the last 7 days
         let last7days = {tests: 0, cases: 0};
         for(var i = historical.length - 8; i < historical.length; i++){
-            if(moment(historical[i].date, 'M/D/YYYY').add(6, 'days').isAfter(moment())){
+            // if(moment(historical[i].date, 'M/D/YYYY').add(6, 'days').isAfter(moment())){
                 last7days.tests += historical[i].tests;
                 last7days.cases += historical[i].positives;
-            }
+            // }
         }
 
         let posRate7days = ((last7days.cases / last7days.tests) * 100).toFixed(2);
